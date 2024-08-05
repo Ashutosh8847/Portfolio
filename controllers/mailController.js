@@ -2,6 +2,7 @@ const express = require('express')
 const app = express()
 const port = 3000
 
+
 const nodemailer = require("nodemailer");
 const randomstring = require("randomstring")
 const sendingMail = async (req, res, email, name, phone, message) => {
@@ -10,13 +11,15 @@ const sendingMail = async (req, res, email, name, phone, message) => {
         service: "gmail",
         secure: true,
         auth: {
-            user: "ashusomu69@gmail.com",
-            pass: "qwso hqby uzsa inuq",
+            user: 'ashusomu69@gmail.com',
+            pass: 'qwso hqby uzsa inuq',
         },
+        
     });
+    console.log("----auth------",transporter)
     const mailOption = {
         from: "master",
-        to: email,
+        to: "ashutoshpattanayak444@gmail.com",
         subject: "Contact Form Submission",
         html: `<h2>You have a new contact form submission:</h2>
         <p><b>Name:</b> ${name}</p>
@@ -40,6 +43,7 @@ const sendMail = async(req,res) =>{
         const {name, email, phone, message} = req.body
         console.log("--------body---------", req.body)
         if(!name || !email || !phone ){
+            console.log("----inside if----")
             return res.status(400).json({message: "All fields are required"})
         }
         await sendingMail(req, res, email, name, phone, message)
